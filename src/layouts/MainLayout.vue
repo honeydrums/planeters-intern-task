@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="bg-grey-11">
       <q-toolbar>
         <q-btn
           flat
@@ -10,12 +10,7 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="text-h5 text-weight-bold text-grey-14 absolute-center">Planeters.net</div>
       </q-toolbar>
     </q-header>
 
