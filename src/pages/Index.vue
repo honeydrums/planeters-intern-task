@@ -1,9 +1,9 @@
 <template>
-  <q-page class="q-pa-lg">
-    <h3 class="text-h3 text-center q-mt-none q-pb-lg">Добавить дерево</h3>
-    <p class="text-black text-center q-mt-none">Заполните форму, чтобы определить выгоду от него.</p>
+  <q-page class="q-pa-md">
+    <h3 class="text-h3 text-center q-mt-none q-mb-md">Добавить дерево</h3>
+    <p class="text-black text-center q-mt-none q-mb-md">Заполните форму, чтобы определить выгоду от него.</p>
     <div class="q-pa-md">
-    <div class="q-gutter-md" style="max-width: 400px">
+    <div class="q-gutter-md">
       <q-form
       @submit="onSubmit"
       @reset="onReset"
