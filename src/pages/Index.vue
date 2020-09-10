@@ -1,63 +1,72 @@
 <template>
   <q-page class="q-pa-md">
-    <h3 class="text-h3 text-center q-mt-none q-mb-md">Добавить дерево</h3>
-    <p class="text-black text-center q-mt-none q-mb-md">Заполните форму, чтобы определить выгоду от него.</p>
-    <div class="q-pa-md">
-    <div class="q-gutter-md">
-      <q-form
-      @submit="onSubmit"
-      @reset="onReset"
-      class="q-gutter-md">
-        <q-input
-          class="q-field--with-bottom"
-          outlined
-          v-model="email"
-          label="Эл. почта"
-          lazy-rules
-          :rules="[ val => val && val.length > 0 || 'Обязательно для заполнения']" />
-        <q-separator />
-        <q-input
-          class="q-field--with-bottom"
-          outlined
-          v-model="name"
-          label="Имя" />
-        <q-separator />
-        <q-input
-          class="q-field--with-bottom"
-          outlined
-          v-model="text"
-          label="Координаты" />
-        <q-separator />
-        <q-select
-          class="q-field--with-bottom"
-          outlined
-          label="Порода дерева"
-          use-input
-          hide-selected
-          fill-input
-          input-debounce="0"
-          :value="model"
-          :options="options"
-          @filter="filterFn"
-          @input-value="setModel"
-          hint="Введите 2 символа для подсказки"
-        >
-        <template v-slot:no-option>
-          <q-item>
-            <q-item-section class="text-grey">
-              Ничего не найдено
-            </q-item-section>
-          </q-item>
-        </template>
-        </q-select>
-        <div>
-          <q-btn class="q-btn q-btn-item non-selectable no-outline full-width q-btn--unelevated q-btn--rectangle q-btn--rounded bg-positive text-white q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase q-btn--wrap" label="Добавить дерево и рассчитать параметры" type="submit" color="primary"/>
-        </div>
-      </q-form>
+    <div class="container">
+      <h3 class="text-h3 text-center q-mt-none q-mb-md">Добавить дерево</h3>
+      <p class="text-black text-center q-mt-none q-mb-md">Заполните форму, чтобы определить выгоду от него.</p>
+      <div class="q-pa-md">
+      <div class="q-gutter-md">
+        <q-form
+        @submit="onSubmit"
+        @reset="onReset"
+        class="q-gutter-md">
+          <q-input
+            class="q-field--with-bottom"
+            outlined
+            v-model="email"
+            label="Эл. почта"
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Обязательно для заполнения']" />
+          <q-separator />
+          <q-input
+            class="q-field--with-bottom"
+            outlined
+            v-model="name"
+            label="Имя" />
+          <q-separator />
+          <q-input
+            class="q-field--with-bottom"
+            outlined
+            v-model="text"
+            label="Координаты" />
+          <q-separator />
+          <q-select
+            class="q-field--with-bottom"
+            outlined
+            label="Порода дерева"
+            use-input
+            hide-selected
+            fill-input
+            input-debounce="0"
+            :value="model"
+            :options="options"
+            @filter="filterFn"
+            @input-value="setModel"
+            hint="Введите 2 символа для подсказки"
+          >
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey">
+                Ничего не найдено
+              </q-item-section>
+            </q-item>
+          </template>
+          </q-select>
+          <div>
+            <q-btn class="q-btn q-btn-item non-selectable no-outline full-width q-btn--unelevated q-btn--rectangle q-btn--rounded bg-positive text-white q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase q-btn--wrap" label="Добавить дерево и рассчитать параметры" type="submit" color="primary"/>
+          </div>
+        </q-form>
+      </div>
     </div>
   </div>
   </q-page>
 </template>
+
+<style lang="stylus">
+.container {
+  margin: 0 auto;
+  max-width: 480px;
+}
+</style>
 
 <script>
 const stringOptions = [
