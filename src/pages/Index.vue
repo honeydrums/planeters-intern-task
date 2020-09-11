@@ -13,21 +13,26 @@
             class="q-field--with-bottom"
             outlined
             v-model="email"
+            type="email"
             label="Эл. почта"
             lazy-rules
-            :rules="[ val => val && val.length > 0 || 'Обязательно для заполнения']" />
+            :rules="[ val => val && val.length > 0 || 'Обязательно для заполнения']"
+          />
           <q-separator />
           <q-input
             class="q-field--with-bottom"
             outlined
             v-model="name"
-            label="Имя" />
+            type="text"
+            label="Имя"
+          />
           <q-separator />
           <q-input
             class="q-field--with-bottom"
             outlined
             v-model="text"
-            label="Координаты" />
+            label="Координаты"
+          />
           <q-separator />
           <q-select
             class="q-field--with-bottom"
@@ -39,20 +44,52 @@
             input-debounce="0"
             :value="model"
             :options="options"
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Обязательно для заполнения']"
             @filter="filterFn"
             @input-value="setModel"
-            hint="Введите 2 символа для подсказки"
-          >
-          <template v-slot:no-option>
-            <q-item>
-              <q-item-section class="text-grey">
-                Ничего не найдено
-              </q-item-section>
-            </q-item>
-          </template>
+            hint="Введите 2 символа для подсказки" >
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-grey">
+                  Ничего не найдено
+                </q-item-section>
+              </q-item>
+            </template>
           </q-select>
           <div>
-            <q-btn class="q-btn q-btn-item non-selectable no-outline full-width q-btn--unelevated q-btn--rectangle q-btn--rounded bg-positive text-white q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase q-btn--wrap" label="Добавить дерево и рассчитать параметры" type="submit" color="primary"/>
+            <q-btn-toggle
+              class="custom-btns"
+              v-model="treeType"
+              spread
+              no-caps
+              rounded
+              unelevated
+              toggle-color="primary"
+              color="white"
+              text-color="primary"
+              :options="[
+                {label: 'Обычное', value: 'regular'},
+                {label: 'Научное', value: 'science'}
+              ]"
+            />
+          </div>
+          <q-select
+            outlined
+            label="Состояние дерева"
+            v-model="species"
+            :options="treeSpecies"
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Обязательно для заполнения']">
+          </q-select>
+          <q-input
+            outlined
+            label="Толщина ствола на выосте груди (~1.3м), см"
+            v-model.number="thick"
+            type="number"
+          />
+          <div>
+            <q-btn class="q-btn q-btn-item non-selectable no-outline full-width q-btn--unelevated q-btn--rectangle q-btn--rounded bg-positive q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase" label="Добавить дерево и рассчитать параметры" type="submit" color="primary"/>
           </div>
         </q-form>
       </div>
@@ -66,11 +103,18 @@
   margin: 0 auto;
   max-width: 480px;
 }
+.custom-btns {
+  border: 1px solid #5bd397;
+}
 </style>
 
 <script>
 const stringOptions = [
-  'Берёза (birch spp)', 'Берёза пушистая (Downy birch)', 'Берёза бородавчатая (повислая) (European white birch)', 'Боярышник обыкновенный(Smooth hawthorm)', 'Бук крупнолистный(American beech)'
+  'Берёза (birch spp)',
+  'Берёза пушистая (Downy birch)',
+  'Берёза бородавчатая (повислая) (European white birch)',
+  'Боярышник обыкновенный(Smooth hawthorm)',
+  'Бук крупнолистный(American beech)'
 ]
 
 export default {
@@ -84,7 +128,19 @@ export default {
       accept: false,
 
       model: null,
-      options: stringOptions
+
+      treeType: 'regular',
+      options: stringOptions,
+      species: null,
+      treeSpecies: [
+        'Сухостой',
+        'Усыхающие',
+        'Сильно ослабленное',
+        'Ослабленное',
+        'Без признаков ослабления',
+        'Выберите состояние'
+      ],
+      thick: 10
     }
   },
   methods: {
