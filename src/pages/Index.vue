@@ -268,8 +268,6 @@ export default {
       name: null,
       text: null,
 
-      accept: false,
-
       model: null,
 
       treeType: 'regular',
@@ -284,7 +282,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      if (this.accept !== true) {
+      if (this.data == null) {
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -297,7 +295,6 @@ export default {
       this.email = null
       this.name = null
       this.text = null
-      this.accept = false
     },
     filterFn (val, update) {
       if (val === '') {
