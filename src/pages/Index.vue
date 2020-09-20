@@ -52,9 +52,17 @@
           <q-input
             class="col q-field--with-bottom"
             outlined
-            v-model="text"
+            v-model="coordinates"
             label="Координаты"
-          />
+          >
+          <template v-slot:append>
+            <q-btn
+              round
+              flat
+              icon="my_location"
+              @click="showMap = true" />
+          </template>
+          </q-input>
           <q-icon
           class="q-ml-sm"
             name="help_outline"
@@ -98,7 +106,7 @@
           <q-tooltip>что это за дерево? может быть клён?</q-tooltip>
           </q-icon>
         </div>
-        <div>
+        <div class="q-mr-xl">
           <q-btn-toggle
             class="custom-btns"
             v-model="treeType"
@@ -156,7 +164,7 @@
             </q-icon>
           </div>
           <q-btn-toggle
-            class="custom-btns"
+            class="q-mr-xl custom-btns"
             v-model="thickness"
             spread
             no-caps
@@ -219,9 +227,13 @@
           <q-tooltip>очоки нннада?</q-tooltip>
           </q-icon>
         </div>
-          <div>
-            <q-btn class="q-btn q-btn-item non-selectable no-outline full-width q-btn--unelevated q-btn--rectangle q-btn--rounded bg-positive q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase" label="Добавить дерево и рассчитать параметры" type="submit" color="primary"/>
-          </div>
+        <div>
+          <q-btn
+          class="q-btn q-btn-item non-selectable no-outline full-width q-btn--unelevated q-btn--rectangle q-btn--rounded bg-positive q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase"
+          label="Добавить дерево и рассчитать параметры"
+          type="submit"
+          color="primary"/>
+        </div>
         </q-form>
       </div>
     </div>
@@ -244,11 +256,26 @@
 
 <script>
 const stringOptions = [
-  'Берёза (birch spp)',
-  'Берёза пушистая (Downy birch)',
-  'Берёза бородавчатая (повислая) (European white birch)',
-  'Боярышник обыкновенный(Smooth hawthorm)',
-  'Бук крупнолистный(American beech)'
+  {
+    label: 'Берёза (birch spp)',
+    latinLabel: 'Betula'
+  },
+  {
+    label: 'Берёза пушистая (Downy birch)',
+    latinLabel: 'Betula pubescens'
+  },
+  {
+    label: 'Берёза бородавчатая (повислая) (European white birch)',
+    latinLabel: 'Betula pendula'
+  },
+  {
+    label: 'Боярышник обыкновенный(Smooth hawthorm)',
+    latinLabel: 'Crataegus laevigata'
+  },
+  {
+    label: 'Бук крупнолистный(American beech)',
+    latinLabel: 'Fagus grandifolia'
+  }
 ]
 
 const treeOptions = [
@@ -277,7 +304,9 @@ export default {
       thick: 10,
       thickness: 'around',
       illumination: 'full',
-      height: null
+      height: null,
+      coordinates: '51.73103966, 36.19461017',
+      showMap: false
     }
   },
   methods: {
